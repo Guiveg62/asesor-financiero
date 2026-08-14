@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { getServiceClient } from "@/lib/supabase";
 import { calcular } from "@/lib/motor";
 import { SYSTEM_PLAN, userPlan } from "@/lib/plan";
+import { getAnthropic, limpiarError } from "@/lib/anthropicClient";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -38,7 +39,7 @@ export async function POST(
 
     const diagnostico = calcular((answers ?? []) as never, interview.client_name);
 
-    const anthropic = new Anthropic();
+    const anthropic = getAnthropic();
     const resp = await anthropic.messages.create({
       model: "claude-opus-5",
       max_tokens: 1500,
@@ -56,6 +57,6 @@ export async function POST(
 
     return NextResponse.json({ plan, parcial: diagnostico.parcial });
   } catch (e) {
-    return NextResponse.json({ error: (e as Error).message }, { status: 500 });
+    return NextResponse.json({ error: limpiarError((e as Error).message) }, { status: 500 });
   }
 }

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import { getServiceClient } from "@/lib/supabase";
 import { construirSystemPrompt, TOOLS } from "@/lib/interviewer";
+import { getAnthropic, limpiarError } from "@/lib/anthropicClient";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -92,7 +93,7 @@ export async function POST(req: Request) {
     }
 
     const supabase = getServiceClient();
-    const anthropic = new Anthropic();
+    const anthropic = getAnthropic();
 
     // Historial visible → mensajes de la API. Si está vacío, inyecta el arranque.
     const convo: Anthropic.MessageParam[] =
@@ -155,7 +156,7 @@ export async function POST(req: Request) {
     );
   } catch (e) {
     return NextResponse.json(
-      { error: (e as Error).message },
+      { error: limpiarError((e as Error).message) },
       { status: 500 }
     );
   }
