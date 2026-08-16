@@ -103,9 +103,16 @@ export default function Chat({
   }, [messages, busy]);
 
   function cambiarIdioma(l: Lang) {
+    if (l === lang) return;
     setLang(l);
     langRef.current = l;
     localStorage.setItem("lang", l);
+    // Si aún no has respondido nada, Claude vuelve a saludar en el nuevo idioma.
+    const yaRespondio = messages.some((m) => m.role === "user");
+    if (!done && !busy && !yaRespondio) {
+      setMessages([]);
+      enviar([]);
+    }
   }
 
   async function confirmar() {
