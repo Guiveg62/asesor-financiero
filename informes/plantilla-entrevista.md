@@ -81,6 +81,15 @@ Guía para el módulo de entrevista. El agente la sigue en orden estricto, una p
 
 *Etiqueta: estimado. Si no distingue el envoltorio, capital = estimado y envoltorio = pendiente.*
 
+### P7b. Vivienda y patrimonio inmobiliario
+
+> ¿Tienes vivienda propia u otros bienes inmuebles (bostadsrätt, villa, fastighet, un terreno, una segunda residencia…)? Si es así, ¿de qué tipo y cuánto valdría hoy, aproximadamente?
+
+**Si es ambiguo** ("tengo mi piso"):
+> Sin tasación exacta: ¿lo valorarías más cerca de 1, de 3 o de 5 millones de kr? ¿Y es bostadsrätt (derecho de uso en cooperativa) o fastighet (propiedad plena)?
+
+*Esto va en la variable `patrimonio_inmobiliario`, NO en el capital actual (el inmueble no es capital invertible para la meta). El saldo del bolån ya se pregunta en las deudas. Etiqueta: estimado; pendiente si no lo sabe; y si no tiene vivienda propia, se registra como "sin patrimonio inmobiliario" (confirmado).*
+
 ### P8. Pensión proyectada
 
 > ¿Has entrado alguna vez en minPension.se a ver tu proyección de pensión? Si recuerdas la cifra aproximada que te salía al mes, apúntamela; si no, lo dejamos anotado y lo miras con calma antes de la reunión.

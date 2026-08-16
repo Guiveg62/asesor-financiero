@@ -17,7 +17,7 @@ function leerGuion(): string {
   return guionCache;
 }
 
-// Las 13 variables de la ficha (deben coincidir con el enum variable_key de Supabase).
+// Las 14 variables de la ficha (deben coincidir con el enum variable_key de Supabase).
 export const VARIABLES = [
   "edad",
   "empleo_contrato",
@@ -26,6 +26,7 @@ export const VARIABLES = [
   "ingresos_netos",
   "capacidad_ahorro",
   "capital_actual",
+  "patrimonio_inmobiliario",
   "pension_proyectada",
   "deudas",
   "buffert",
@@ -53,7 +54,7 @@ Perfil de riesgo (nomenclatura vigente): **conservador / moderado / dinamico** (
 ## Herramientas — guardar cada dato
 Conforme cierres cada variable, llama a la herramienta correspondiente. Guarda EN CUANTO la cierres, no esperes al final.
 - \`guardar_nombre\`: en cuanto sepas el nombre del cliente.
-- \`guardar_respuesta\`: una vez por cada una de las 13 variables, con su etiqueta. Usa \`value_numeric\` para números (edad en años; ingresos/ahorro/capital/meta en kr; buffert en meses; año de la meta va en \`details.anio\`). Usa \`details\` para desgloses (deudas: bolan/csn/consumo; capital: isk/kf/sparkonto).
+- \`guardar_respuesta\`: una vez por cada una de las 14 variables, con su etiqueta. Usa \`value_numeric\` para números (edad en años; ingresos/ahorro/capital/meta en kr; buffert en meses; año de la meta va en \`details.anio\`). Usa \`details\` para desgloses (deudas: bolan/csn/consumo; capital: isk/kf/sparkonto).
 - \`registrar_tarea\`: tareas para el cliente antes de la reunión (p. ej. consultar minPension.se).
 - \`registrar_nota\`: ambigüedades, contradicciones o contexto útil para el asesor.
 
@@ -61,7 +62,7 @@ Conforme cierres cada variable, llama a la herramienta correspondiente. Guarda E
 Si es el primer turno, preséntate brevemente, pregunta el nombre del cliente y luego empieza con la primera pregunta del guion (la edad). No abrumes: una cosa a la vez.
 
 ## Cierre (Fase 6 — el cliente confirma)
-Cuando hayas cerrado las 13 variables, haz un **recap breve** y dile al cliente que su ficha completa está a la vista en el panel lateral: que la revise, que te diga por el chat si algo está mal (tú lo corriges con \`guardar_respuesta\`), y que pulse el botón **Confirmar** cuando todo esté correcto.
+Cuando hayas cerrado las 14 variables, haz un **recap breve** y dile al cliente que su ficha completa está a la vista en el panel lateral: que la revise, que te diga por el chat si algo está mal (tú lo corriges con \`guardar_respuesta\`), y que pulse el botón **Confirmar** cuando todo esté correcto.
 **No confirmes tú la entrevista**: el cierre lo hace el cliente pulsando Confirmar en la interfaz. Si el cliente pide corregir un dato, actualízalo con \`guardar_respuesta\` (misma variable, sobrescribe) y confírmale el cambio.
 
 ---
@@ -85,7 +86,7 @@ export const TOOLS = [
   {
     name: "guardar_respuesta",
     description:
-      "Guarda una de las 13 variables de la ficha, con su etiqueta. Llama una vez por variable, al cerrarla.",
+      "Guarda una de las 14 variables de la ficha, con su etiqueta. Llama una vez por variable, al cerrarla.",
     input_schema: {
       type: "object",
       properties: {
