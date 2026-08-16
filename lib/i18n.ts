@@ -38,6 +38,8 @@ type Dict = {
     emailSend: string;
     emailSending: string;
     emailSent: string;
+    planTitle: string;
+    planLoading: string;
   };
   labels: Record<string, string>; // etiquetas de chip
   vars: Record<string, string>; // nombres de las 13 variables
@@ -72,6 +74,8 @@ export const T: Record<Lang, Dict> = {
       emailSend: "Enviármelo",
       emailSending: "Enviando…",
       emailSent: "✓ Te lo hemos enviado a tu correo.",
+      planTitle: "Tu plan, en palabras claras",
+      planLoading: "Preparando tu plan…",
     },
     labels: { confirmado: "confirmado", estimado: "estimado", pendiente: "pendiente" },
     vars: {
@@ -120,6 +124,8 @@ export const T: Record<Lang, Dict> = {
       emailSend: "Skicka till mig",
       emailSending: "Skickar…",
       emailSent: "✓ Vi har skickat den till din e-post.",
+      planTitle: "Din plan, i klartext",
+      planLoading: "Förbereder din plan…",
     },
     labels: { confirmado: "bekräftad", estimado: "uppskattad", pendiente: "saknas" },
     vars: {
@@ -168,6 +174,8 @@ export const T: Record<Lang, Dict> = {
       emailSend: "Send it to me",
       emailSending: "Sending…",
       emailSent: "✓ We've sent it to your email.",
+      planTitle: "Your plan, in plain words",
+      planLoading: "Preparing your plan…",
     },
     labels: { confirmado: "confirmed", estimado: "estimated", pendiente: "pending" },
     vars: {
