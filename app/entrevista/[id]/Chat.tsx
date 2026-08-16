@@ -26,6 +26,10 @@ export default function Chat({
   const [busy, setBusy] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [done, setDone] = useState(false);
+  const [email, setEmail] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const startedRef = useRef(false);
   const langRef = useRef(initialLang);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -127,6 +131,28 @@ export default function Chat({
     }
   }
 
+  async function enviarEmail(e: React.FormEvent) {
+    e.preventDefault();
+    const correo = email.trim();
+    if (!correo || sending) return;
+    setSending(true);
+    setEmailError(null);
+    try {
+      const r = await fetch(`/api/interview/${interviewId}/send-plan`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: correo, lang: langRef.current }),
+      });
+      const data = await r.json();
+      if (data.error) setEmailError(data.error);
+      else setSent(true);
+    } catch (err) {
+      setEmailError((err as Error).message);
+    } finally {
+      setSending(false);
+    }
+  }
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     const text = input.trim();
@@ -159,7 +185,29 @@ export default function Chat({
           </div>
 
           {done ? (
-            <div className="chat-done">{t.chat.done}</div>
+            <div className="chat-done">
+              <p style={{ margin: "0 0 12px" }}>{t.chat.done}</p>
+              {sent ? (
+                <p className="email-sent">{t.chat.emailSent}</p>
+              ) : (
+                <form className="email-form" onSubmit={enviarEmail}>
+                  <label>{t.chat.emailPrompt}</label>
+                  <div className="email-row">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={t.chat.emailPlaceholder}
+                      required
+                    />
+                    <button type="submit" disabled={sending || !email.trim()}>
+                      {sending ? t.chat.emailSending : t.chat.emailSend}
+                    </button>
+                  </div>
+                  {emailError && <p className="plan-error">⚠️ {emailError}</p>}
+                </form>
+              )}
+            </div>
           ) : (
             <form className="chat-input" onSubmit={onSubmit}>
               <input

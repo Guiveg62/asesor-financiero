@@ -33,6 +33,11 @@ type Dict = {
     fichaHint: string;
     reviewHint: string;
     confirm: string;
+    emailPrompt: string;
+    emailPlaceholder: string;
+    emailSend: string;
+    emailSending: string;
+    emailSent: string;
   };
   labels: Record<string, string>; // etiquetas de chip
   vars: Record<string, string>; // nombres de las 13 variables
@@ -62,6 +67,11 @@ export const T: Record<Lang, Dict> = {
       fichaHint: "Cada dato se guarda con su etiqueta.",
       reviewHint: "Ya está toda tu ficha. Revísala; si algo está mal, corrígelo en el chat. Cuando esté bien, confírmala.",
       confirm: "Confirmar y cerrar",
+      emailPrompt: "¿Quieres recibir tu plan por email?",
+      emailPlaceholder: "tu@correo.com",
+      emailSend: "Enviármelo",
+      emailSending: "Enviando…",
+      emailSent: "✓ Te lo hemos enviado a tu correo.",
     },
     labels: { confirmado: "confirmado", estimado: "estimado", pendiente: "pendiente" },
     vars: {
@@ -105,6 +115,11 @@ export const T: Record<Lang, Dict> = {
       fichaHint: "Varje uppgift sparas med sin etikett.",
       reviewHint: "Nu är hela din profil ifylld. Gå igenom den; om något är fel, rätta det i chatten. Bekräfta när allt stämmer.",
       confirm: "Bekräfta och avsluta",
+      emailPrompt: "Vill du få din plan via e-post?",
+      emailPlaceholder: "du@epost.se",
+      emailSend: "Skicka till mig",
+      emailSending: "Skickar…",
+      emailSent: "✓ Vi har skickat den till din e-post.",
     },
     labels: { confirmado: "bekräftad", estimado: "uppskattad", pendiente: "saknas" },
     vars: {
@@ -148,6 +163,11 @@ export const T: Record<Lang, Dict> = {
       fichaHint: "Every detail is saved with its label.",
       reviewHint: "Your whole profile is filled in. Review it; if anything is wrong, fix it in the chat. Confirm when it looks right.",
       confirm: "Confirm and close",
+      emailPrompt: "Want to get your plan by email?",
+      emailPlaceholder: "you@email.com",
+      emailSend: "Send it to me",
+      emailSending: "Sending…",
+      emailSent: "✓ We've sent it to your email.",
     },
     labels: { confirmado: "confirmed", estimado: "estimated", pendiente: "pending" },
     vars: {
