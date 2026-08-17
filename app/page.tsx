@@ -18,6 +18,7 @@ export default function Home() {
   }
 
   const t = T[lang].landing;
+  const disclaimer = T[lang].disclaimer;
 
   return (
     <main className="landing">
@@ -49,6 +50,7 @@ export default function Home() {
       </ol>
 
       <p className="fineprint">{t.fineprint}</p>
+      <p className="disclaimer">{disclaimer}</p>
     </main>
   );
 }

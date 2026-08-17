@@ -43,6 +43,7 @@ type Dict = {
   };
   labels: Record<string, string>; // etiquetas de chip
   vars: Record<string, string>; // nombres de las 13 variables
+  disclaimer: string; // descargo de responsabilidad (finanzas)
 };
 
 export const T: Record<Lang, Dict> = {
@@ -94,6 +95,8 @@ export const T: Record<Lang, Dict> = {
       pareja: "Pareja",
       meta: "Meta",
     },
+    disclaimer:
+      "Herramienta orientativa. No constituye asesoramiento financiero regulado (en Suecia, la asesoría financiera está supervisada por Finansinspektionen). Las proyecciones son estimaciones, no garantías. Consulta a un asesor cualificado antes de tomar decisiones.",
   },
 
   sv: {
@@ -144,6 +147,8 @@ export const T: Record<Lang, Dict> = {
       pareja: "Partner",
       meta: "Mål",
     },
+    disclaimer:
+      "Vägledande verktyg. Utgör inte reglerad finansiell rådgivning (finansiell rådgivning står under Finansinspektionens tillsyn i Sverige). Prognoserna är uppskattningar, inte garantier. Rådgör med en kvalificerad rådgivare innan du fattar beslut.",
   },
 
   en: {
@@ -194,6 +199,8 @@ export const T: Record<Lang, Dict> = {
       pareja: "Partner",
       meta: "Goal",
     },
+    disclaimer:
+      "Guidance tool only. Not regulated financial advice (in Sweden, financial advice is supervised by Finansinspektionen). Projections are estimates, not guarantees. Consult a qualified adviser before making decisions.",
   },
 };
 

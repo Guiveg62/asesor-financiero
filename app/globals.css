@@ -414,6 +414,19 @@ h1 {
   margin: 0 0 10px;
 }
 
+/* Descargo de responsabilidad (finanzas) */
+.disclaimer {
+  text-align: left;
+  background: #f6f8fa;
+  border: 1px solid #e6eaef;
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
 /* Ficha en vivo */
 .ficha {
   border: 1.5px solid #eef1f4;

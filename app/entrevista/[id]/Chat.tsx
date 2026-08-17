@@ -203,6 +203,7 @@ export default function Chat({
                 </div>
               )}
               {planError && <p className="plan-error">⚠️ {planError}</p>}
+              <p className="disclaimer">{t.disclaimer}</p>
             </div>
           ) : (
             <form className="chat-input" onSubmit={onSubmit}>

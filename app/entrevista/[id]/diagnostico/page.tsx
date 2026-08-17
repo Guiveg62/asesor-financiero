@@ -2,6 +2,7 @@ import { getServiceClient } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { calcular } from "@/lib/motor";
+import { T } from "@/lib/i18n";
 import PlanCristiano from "./PlanCristiano";
 
 export const runtime = "nodejs";
@@ -130,7 +131,9 @@ export default async function DiagnosticoPage({
         </>
       )}
 
-      <p style={{ marginTop: 28 }}>
+      <p className="disclaimer" style={{ marginTop: 28 }}>{T.es.disclaimer}</p>
+
+      <p style={{ marginTop: 16 }}>
         <Link href={`/entrevista/${id}`} className="back">← Volver a la entrevista</Link>
       </p>
     </main>
