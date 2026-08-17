@@ -427,6 +427,10 @@ h1 {
   font-weight: 400;
 }
 
+.disclaimer-footer {
+  margin-top: 20px;
+}
+
 /* Ficha en vivo */
 .ficha {
   border: 1.5px solid #eef1f4;
