@@ -1,6 +1,7 @@
 import { getServiceClient } from "@/lib/supabase";
 import { movimientoDelDia, MERCADO_NOMBRE } from "@/lib/market";
 import { pesoRentaVariable } from "@/lib/motor";
+import { enviarEmailAsesor } from "@/lib/email";
 
 // Umbral de "movimiento relevante" por perfil (reglas del asesor).
 const UMBRAL: Record<string, number> = {
@@ -39,7 +40,7 @@ export async function runAlertas(cambioForzado?: number): Promise<ResultadoAlert
 
   const { data: interviews } = await supabase
     .from("interviews")
-    .select("id, status")
+    .select("id, client_name, status")
     .eq("status", "confirmada");
   const clientes = interviews ?? [];
   if (clientes.length === 0) {
@@ -91,7 +92,39 @@ export async function runAlertas(cambioForzado?: number): Promise<ResultadoAlert
   }
 
   if (insertar.length > 0) {
-    await supabase.from("alerts").insert(insertar);
+    const { data: creadas } = await supabase
+      .from("alerts")
+      .insert(insertar)
+      .select("id, interview_id, severidad, mensaje");
+
+    // Reparto: correo al asesor (siempre) con el resumen del día.
+    const asesorEmail = process.env.ASESOR_EMAIL;
+    if (asesorEmail && process.env.RESEND_API_KEY && creadas && creadas.length) {
+      const nombreDe = new Map(
+        clientes.map((c) => [c.id, (c as { client_name?: string }).client_name ?? "Cliente"])
+      );
+      const filas = creadas.map((a) => ({
+        cliente: nombreDe.get(a.interview_id) ?? "Cliente",
+        severidad: a.severidad as string,
+        mensaje: a.mensaje as string,
+      }));
+      try {
+        await enviarEmailAsesor(
+          asesorEmail,
+          `Alertas del día — ${filas.length} cliente(s)`,
+          filas
+        );
+        await supabase
+          .from("alerts")
+          .update({ enviada_asesor: true })
+          .in(
+            "id",
+            creadas.map((a) => a.id)
+          );
+      } catch {
+        // Un fallo de email no debe tumbar la revisión del mercado.
+      }
+    }
   }
   return { mercadoPct: mov.cambioPct, revisados, nuevas: insertar.length };
 }
