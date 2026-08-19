@@ -1,9 +1,9 @@
 // Lectura del mercado (S5). Fuente: Yahoo Finance (JSON, sin API key).
-// Índice por defecto: S&P 500 (^GSPC) como proxy de renta variable global.
+// Índice por defecto: OMX Stockholm 30 (^OMX), la bolsa de Estocolmo.
 // Cambia MERCADO_SIMBOLO por otro índice si el asesor lo prefiere
-// (p. ej. ^OMX = OMX Stockholm 30, ^STOXX = Euro Stoxx).
-export const MERCADO_SIMBOLO = process.env.MERCADO_SIMBOLO || "^GSPC";
-export const MERCADO_NOMBRE = process.env.MERCADO_NOMBRE || "la bolsa";
+// (p. ej. ^GSPC = S&P 500 global, ^OMXSPI = OMX Stockholm All-Share).
+export const MERCADO_SIMBOLO = process.env.MERCADO_SIMBOLO || "^OMX";
+export const MERCADO_NOMBRE = process.env.MERCADO_NOMBRE || "la bolsa de Estocolmo";
 
 // Cambio porcentual del último día de cotización (cierre vs cierre anterior).
 export async function movimientoDelDia(): Promise<{ fecha: string; cambioPct: number }> {
