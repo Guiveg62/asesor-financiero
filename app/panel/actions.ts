@@ -22,3 +22,12 @@ export async function logout() {
   c.delete(COOKIE);
   redirect("/panel/login");
 }
+
+// El asesor dispara la revisión del mercado a mano (además del cron diario).
+export async function revisarMercado() {
+  const c = await cookies();
+  if (c.get(COOKIE)?.value !== expectedToken()) redirect("/panel/login");
+  const { runAlertas } = await import("@/lib/runAlertas");
+  await runAlertas();
+  redirect("/panel");
+}

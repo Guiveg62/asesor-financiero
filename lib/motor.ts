@@ -258,3 +258,24 @@ export function calcular(answers: Answer[], clientName: string | null): Diagnost
     senales,
   };
 }
+
+// Para las alertas (S5): % en renta variable de un cliente, según su perfil y
+// horizonte, reutilizando la regla de cartera. null si faltan datos.
+export function pesoRentaVariable(
+  answers: {
+    variable: string;
+    value_text: string | null;
+    value_numeric: number | null;
+    details?: Record<string, unknown> | null;
+  }[]
+): { perfil: Perfil; rv: number } | null {
+  const by = (v: string) => answers.find((a) => a.variable === v);
+  const perfil = normPerfil(by("perfil_riesgo")?.value_text ?? null);
+  const aMeta = by("meta");
+  const anio =
+    aMeta?.details && typeof (aMeta.details as { anio?: unknown }).anio === "number"
+      ? ((aMeta.details as { anio: number }).anio)
+      : null;
+  if (!perfil || anio == null) return null;
+  return { perfil, rv: cartera(anio - ANIO_ACTUAL, perfil).rv };
+}
