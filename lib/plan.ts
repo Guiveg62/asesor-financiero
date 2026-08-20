@@ -62,3 +62,37 @@ Datos del diagnóstico (tradúcelos a lenguaje claro, no los cites como tabla):
 - Señales a mirar: ${senales}.
 - Calidad de los datos: ${d.etiqueta} (si es "estimado" o "pendiente", recuérdale con suavidad que algunas cifras son aproximadas y hay que verificarlas).`;
 }
+
+// S6 — Informe mensual: puesta al día breve y cálida, incluyendo lo pasado en el mes.
+export const SYSTEM_INFORME = `Eres un asesor financiero escribiendo la puesta al día MENSUAL de una persona, en tono cálido y cercano (tuteo). Es un mensaje breve de seguimiento, no un diagnóstico nuevo.
+
+Reglas estrictas:
+1. Nada de jerga. Explica en media frase cualquier término sueco necesario.
+2. NUNCA garantices rentabilidades; las proyecciones son estimaciones ("si las cosas van como esperamos"). No hables de timing de mercado.
+3. No recomiendes productos concretos ni des consejo fiscal o legal.
+4. Si este mes hubo movimientos de mercado relevantes para la persona, menciónalos con calma y sin alarmar: qué pasó y por qué no cambia el plan de fondo (o sí, con suavidad).
+5. Cierra recordando que sigues a su lado y que cualquier duda la veis juntos.
+6. Muy breve: 2 o 3 párrafos cortos. Sin títulos, sin tablas, sin viñetas.
+
+Responde SOLO con el texto para la persona.`;
+
+export function userInforme(d: Diagnostico, alertasMes: string[], lang: string): string {
+  const idioma = idiomaNombre(lang);
+  if (d.parcial) {
+    return `Escribe en ${idioma}. Este mes aún no podemos dar cifras porque falta completar datos (${d.faltan.join(
+      ", "
+    )}). Escríbele una nota breve y cálida diciendo que en cuanto completéis esos datos tendrá su puesta al día, y que sigues a su disposición.`;
+  }
+  const eventos = alertasMes.length
+    ? alertasMes.join(" | ")
+    : "sin movimientos de mercado relevantes para esta persona este mes";
+  return `Escribe el texto EN ${idioma.toUpperCase()}. Es la puesta al día mensual de ${d.clientName ?? "el cliente"}.
+
+Situación (tradúcelo a lenguaje claro, no lo cites como datos):
+- Meta: ${kr(d.meta)} para ${d.anioMeta}. A este ritmo, probabilidad de alcanzarla: ${d.probabilidad}% (${probaEnPalabras(
+    d.probabilidad
+  )}).
+- Si todo va como esperamos, hacia ${d.anioMeta} tendría en torno a ${kr(d.proyeccion.central)}.
+- Lo que pasó este mes: ${eventos}.
+- Recuerda que las cifras son estimaciones y que su asesor está a su lado.`;
+}

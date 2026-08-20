@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { getServiceClient } from "@/lib/supabase";
 import { expectedToken, COOKIE } from "@/lib/auth";
-import { logout, revisarMercado } from "./actions";
+import { logout, revisarMercado, generarInforme } from "./actions";
 
 export const runtime = "nodejs";
 
@@ -56,6 +56,11 @@ export default async function PanelPage() {
           <form action={revisarMercado}>
             <button className="panel-logout" type="submit">
               Revisar mercado ahora
+            </button>
+          </form>
+          <form action={generarInforme}>
+            <button className="panel-logout" type="submit">
+              Enviar informe mensual
             </button>
           </form>
           <form action={logout}>

@@ -31,3 +31,12 @@ export async function revisarMercado() {
   await runAlertas();
   redirect("/panel");
 }
+
+// El asesor genera y se envía el informe mensual a mano (además del cron del día 1).
+export async function generarInforme() {
+  const c = await cookies();
+  if (c.get(COOKIE)?.value !== expectedToken()) redirect("/panel/login");
+  const { runInformeMensual } = await import("@/lib/runInforme");
+  await runInformeMensual();
+  redirect("/panel");
+}
